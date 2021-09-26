@@ -5,26 +5,32 @@ import 'package:movie/components/hero_container.dart';
 import 'package:movie/components/movie_card.dart';
 import 'package:movie/constants.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:movie/controller/genre_controller.dart';
+import 'package:movie/controller/movie_controller.dart';
 
 class Home extends StatelessWidget {
+  final GenreController genreController = Get.put(GenreController());
+  final MovieController movieController = Get.put(MovieController());
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: kPrimaryColor,
         body: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //! Hero
               HeroContainer(
-                paddingTop: 35,
+                paddingTop: 20,
                 paddingBottom: 25,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Movie Scout',
-                      style: TextStyle(fontSize: 33, color: kPrimaryColor),
+                      style: TextStyle(fontSize: 30, color: kPrimaryColor),
                     ),
                     SizedBox(
                       height: 7,
@@ -34,11 +40,11 @@ class Home extends StatelessWidget {
                       style: TextStyle(color: kPrimaryColor),
                     ),
                     SizedBox(
-                      height: 25,
+                      height: 20,
                     ),
                     //!Search Button
                     Container(
-                      height: 60,
+                      height: 50,
                       child: ElevatedButton(
                         onPressed: () {
                           Get.toNamed('/search');
@@ -60,7 +66,7 @@ class Home extends StatelessWidget {
                             Text(
                               'Search movie, film, people',
                               style: TextStyle(
-                                  color: kSecondaryLightColor, fontSize: 18),
+                                  color: kSecondaryLightColor, fontSize: 15),
                             )
                           ],
                         ),
@@ -94,49 +100,49 @@ class Home extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       child: SizedBox(
                         height: 50,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            GenreWidget(
-                              onTap: () {},
-                              text: 'Action',
-                              isSelected: true,
-                            ),
-                            GenreWidget(
-                              onTap: () {},
-                              text: 'Horror',
-                            ),
-                            GenreWidget(
-                              onTap: () {},
-                              text: 'Documentary',
-                            ),
-                            GenreWidget(
-                              onTap: () {},
-                              text: 'Science Fiction',
-                            ),
-                          ],
-                        ),
+                        child: Obx(() => Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                ...genreController.genreData
+                                    .map(
+                                      (genre) => GenreWidget(
+                                        onTap: () {},
+                                        text: genre.name,
+                                        isSelected: false,
+                                      ),
+                                    )
+                                    .toList()
+                              ],
+                            )),
                       ),
                     ),
                   ],
                 ),
               ),
 
-              // ! Movies
+              //!Movies
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15, top: 15),
-                  child: GridView.count(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 15,
-                    crossAxisSpacing: 15,
-                    childAspectRatio: 0.8,
-                    children: [
-                      ...List.generate(
-                          10,
-                          (index) => MovieCard()).toList()
-                    ],
+                  padding: EdgeInsets.only(
+                    left: 15,
+                    right: 15,
+                    top: 15,
                   ),
+                  child: Obx(() => GridView.builder(
+                        controller: movieController.scrollController,
+                        padding: EdgeInsets.only(top: 10, bottom: 30),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 15,
+                            crossAxisSpacing: 15,
+                            childAspectRatio: 0.65),
+                        itemCount: movieController.movieData.length,
+                        itemBuilder: (_, index) {
+                          return MovieCard(
+                            movie: movieController.movieData[index],
+                          );
+                        },
+                      )),
                 ),
               ),
             ],

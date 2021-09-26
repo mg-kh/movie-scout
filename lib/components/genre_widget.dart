@@ -15,7 +15,7 @@ class GenreWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
         margin: EdgeInsets.only(right: 10),
-        height: 40,
+        height: 35,
         decoration: BoxDecoration(
             color: isSelected ? kSecondaryColor : null,
             borderRadius: BorderRadius.circular(20),
@@ -25,8 +25,8 @@ class GenreWidget extends StatelessWidget {
           child: Text(
             '$text',
             style: isSelected
-                ? TextStyle(color: kPrimaryColor, fontSize: 14)
-                : TextStyle(color: kSecondaryColor, fontSize: 14),
+                ? TextStyle(color: kPrimaryColor, fontSize: 13)
+                : TextStyle(color: kSecondaryColor, fontSize: 13),
           ),
         ),
       ),

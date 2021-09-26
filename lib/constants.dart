@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 //!Color
-HexColor kPrimaryColor = HexColor('#FFFFFF');
-HexColor kSecondaryColor = HexColor('#3A3A3A');
-HexColor kSecondaryLightColor = HexColor('#727272');
+HexColor kPrimaryColor = HexColor('#ffffff');
+HexColor kSecondaryColor = HexColor('#E32227');
+Color kSecondaryLightColor = kSecondaryColor.withOpacity(0.4);
 
 //!Hero
 double kHeroContainerBorderRadius = 25;
@@ -14,3 +14,6 @@ double kHeroSearchButtonBorderRadius = 15;
 TextStyle kSectionTextStyle = TextStyle(
   fontSize: 20,
 );
+
+//! Circular Progress
+HexColor kCircularProgressColor = kSecondaryColor;
