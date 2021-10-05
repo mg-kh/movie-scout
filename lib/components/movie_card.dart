@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:movie/components/no_file_widget.dart';
 import 'package:movie/constants.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class MovieCard extends StatelessWidget {
   late final movie;
@@ -10,56 +11,88 @@ class MovieCard extends StatelessWidget {
   MovieCard({required this.movie});
 
   @override
-  Widget build(BuildContext context) {
+  build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed('/detail');
+        Get.toNamed('/detail/${movie.id}');
       },
-      child: Stack(
-        children: [
-          //!Image
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      'https://www.themoviedb.org/t/p/w220_and_h330_face${movie.posterPath}',
-                    ))),
-          ),
-
-          //!Circular Progress
-          Positioned(
-            top: 5,
-            right: 5,
-            child: Stack(
-              alignment: Alignment.center,
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
               children: [
-                Container(
-                  width: 45,
-                  height: 45,
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.6), shape: BoxShape.circle),
-                  child: CircularProgressIndicator(
-                    value: movie.voteAverage / 10,
-                    strokeWidth: 3,
-                    valueColor:
-                        AlwaysStoppedAnimation<Color>(kCircularProgressColor),
-                    backgroundColor: kSecondaryLightColor,
-                  ),
-                ),
+                //!image
+                movie.posterPath != null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(kCardBorderRadius),
+                        child: Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius:
+                                    BorderRadius.circular(kCardBorderRadius),
+                              ),
+                              constraints: BoxConstraints(maxHeight: 170),
+                              child: Center(
+                                child: SizedBox(
+                                  width: 30,
+                                  height: 30,
+                                  child: CircularProgressIndicator(
+                                    color: kSecondaryColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            ClipRRect(
+                              borderRadius:
+                                  BorderRadius.circular(kCardBorderRadius),
+                              child: FadeInImage.memoryNetwork(
+                                placeholder: kTransparentImage,
+                                image:
+                                    'https://www.themoviedb.org/t/p/w220_and_h330_face${movie.posterPath}',
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : NoFileWidget(width: 150, height: 175,),
+
+                //!release date
                 Positioned(
-                  child: Text(
-                    '${movie.voteAverage}',
-                    style: TextStyle(color: Colors.white, fontSize: 10),
+                  bottom: 0,
+                  child: Container(
+                    width: 70,
+                    height: 20,
+                    decoration: BoxDecoration(
+                        color: kSecondaryColor,
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(kCardBorderRadius))),
+                    child: Center(
+                      child: Text(
+                        '${movie.releaseDate.toString().substring(0, 4)}',
+                        style: TextStyle(color: Colors.white, fontSize: kMovieCardTitleSize),
+                      ),
+                    ),
                   ),
                 )
               ],
             ),
-          ),
-        ],
+            SizedBox(
+              height: 7,
+            ),
+            Text(
+              '${movie.title}',
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: context.theme.primaryColor,
+                fontSize: kMovieCardTitleSize,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

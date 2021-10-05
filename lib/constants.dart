@@ -4,16 +4,20 @@ import 'package:hexcolor/hexcolor.dart';
 //!Color
 HexColor kPrimaryColor = HexColor('#ffffff');
 HexColor kSecondaryColor = HexColor('#E32227');
-Color kSecondaryLightColor = kSecondaryColor.withOpacity(0.4);
+Color kSecondaryLightColor = kSecondaryColor.withOpacity(0.2);
 
-//!Hero
-double kHeroContainerBorderRadius = 25;
-double kHeroSearchButtonBorderRadius = 15;
 
-//! Section
-TextStyle kSectionTextStyle = TextStyle(
-  fontSize: 20,
-);
+//!padding
+double kHorizontalPaddingValue = 15;
 
-//! Circular Progress
-HexColor kCircularProgressColor = kSecondaryColor;
+//!font sizes
+double kHeroTitleSize = 25;
+double kHeroTextSize = 15;
+double kGenreTextSize = 13;
+double kMovieCardTitleSize = 13;
+double kMovieCardTextSize = 11;
+double kSectionTitleSize = 20;
+double kGeneralTextSize = 13;
+
+//!borderRadius
+double kCardBorderRadius = 10;

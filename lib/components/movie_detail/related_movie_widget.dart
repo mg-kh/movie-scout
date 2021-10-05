@@ -1,0 +1,144 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:get/get.dart';
+import 'package:movie/constants.dart';
+import 'package:transparent_image/transparent_image.dart';
+
+class RelatedMovieWidget extends StatelessWidget {
+  final relMovies;
+  RelatedMovieWidget({required this.relMovies});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        //!Title
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Related Movies',
+              style: TextStyle(
+                  fontSize: kSectionTitleSize,
+                  fontWeight: FontWeight.bold,color: context.theme.primaryColor,),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Row(
+                children: [
+                  Text(
+                    'View all',
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                        fontStyle: FontStyle.italic),
+                  ),
+                  Icon(
+                    FeatherIcons.chevronsRight,
+                    color: Colors.grey,
+                    size: 18,
+                  )
+                ],
+              ),
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.transparent, elevation: 0),
+            ),
+          ],
+        ),
+
+        //!RelatedMovies
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ...relMovies.map((movie) => GestureDetector(
+                    onTap: () {
+                      Get.toNamed('/detail/${movie.id}');
+                    },
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //!Poster
+                          Container(
+                            width: 160,
+                            height: 90,
+                            margin: EdgeInsets.only(right: 18),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(kCardBorderRadius),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    color: Colors.grey,
+                                    child: Center(
+                                      child: SizedBox(
+                                        width: 30,
+                                        height: 30,
+                                        child: CircularProgressIndicator(
+                                          color: kSecondaryColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  FadeInImage.memoryNetwork(
+                                    placeholder: kTransparentImage,
+                                    image: 'https://www.themoviedb.org/t/p/w250_and_h141_face${movie.posterPath}',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(
+                            height: 5,
+                          ),
+
+                          //Title and rating
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              //Title
+                              SizedBox(
+                                width: 120,
+                                child: Text(
+                                  '${movie.title}',
+                                  style: TextStyle(fontSize: 14,color: context.theme.primaryColor,),
+                                ),
+                              ),
+                              Container(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      FeatherIcons.star,
+                                      color: kSecondaryColor,
+                                      size: 16,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text(
+                                      '${movie.voteAverage.toStringAsFixed(1)}',
+                                      style: TextStyle(
+                                          fontStyle: FontStyle.italic,color: context.theme.primaryColor, fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ))
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
