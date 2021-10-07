@@ -10,7 +10,7 @@ class MovieDetailApiService{
     if(response.statusCode == 200){
       return movieDetailFromJson('${response.body}');
     }else{
-      return null;
+      throw Exception('Error occur');
     }
   }
 }

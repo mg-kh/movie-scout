@@ -19,13 +19,12 @@ class Cast extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: context.theme.backgroundColor,
-        body: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: context.theme.backgroundColor,
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
-              top: 20,
               left: kHorizontalPaddingValue,
               right: kHorizontalPaddingValue,
             ),

@@ -11,70 +11,71 @@ import 'package:movie/controller/movie_detail/movie_detail_controller.dart';
 import 'package:movie/controller/movie_detail/related_movie_controller.dart';
 
 class Detail extends StatelessWidget {
-  final MovieDetailController movieDetailController =
-      Get.put(MovieDetailController());
-  final CastController castController = Get.put(CastController());
-  final RelatedMovieController relatedMovieController =
-      Get.put(RelatedMovieController());
+  final MovieDetailController movieDetailController = Get.find();
+  final CastController castController = Get.find();
+  final RelatedMovieController relatedMovieController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-          backgroundColor: context.theme.backgroundColor,
+    return Scaffold(
+      backgroundColor: context.theme.backgroundColor,
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: kHorizontalPaddingValue),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //!About movie
-              Obx(() {
-                if (!movieDetailController.isLoading.value) {
-                  return AboutMovie(
-                    movieDetail: movieDetailController.movieDetail.value,
-                  );
-                } else {
-                  return AboutMovieLoading();
-                }
-              }),
-
-              SizedBox(
-                height: 20,
-              ),
-
-              //!Casts
-              Obx(() {
-                if (!castController.isLoading.value) {
-                  return CastDataWidget(
-                    cast: castController.castData,
-                  );
-                } else {
-                  return CastDataWidgetLoading();
-                }
-              }),
-
-              SizedBox(
-                height: 20,
-              ),
-
-              //!Related Movies
-              Obx(() {
-                if (!relatedMovieController.isLoading.value) {
-                  return RelatedMovieWidget(
-                      relMovies: relatedMovieController.relMovieData);
-                } else {
-                  return CastDataWidgetLoading();
-                }
-              }),
-
-              SizedBox(
-                height: 20,
-              ),
-            ],
-          ),
-        ),
+    child: Padding(
+      padding: EdgeInsets.only(
+        top: 35,
+        left: kHorizontalPaddingValue,
+        right: kHorizontalPaddingValue,
       ),
-    ));
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          //!About movie
+          Obx(() {
+            if (!movieDetailController.isLoading.value) {
+              return AboutMovie(
+                movieDetail: movieDetailController.movieDetail.value,
+              );
+            } else {
+              return AboutMovieLoading();
+            }
+          }),
+
+          SizedBox(
+            height: 20,
+          ),
+
+          //!Casts
+          Obx(() {
+            if (!castController.isLoading.value) {
+              return CastDataWidget(
+                cast: castController.castData,
+              );
+            } else {
+              return CastDataWidgetLoading();
+            }
+          }),
+
+          SizedBox(
+            height: 20,
+          ),
+
+          //!Related Movies
+          Obx(() {
+            if (!relatedMovieController.isLoading.value) {
+              return RelatedMovieWidget(
+                  relMovies: relatedMovieController.relMovieData);
+            } else {
+              return CastDataWidgetLoading();
+            }
+          }),
+
+          SizedBox(
+            height: 20,
+          ),
+        ],
+      ),
+    ),
+      ),
+    );
   }
 }

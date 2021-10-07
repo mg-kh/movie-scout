@@ -53,15 +53,16 @@ class CastDataWidget extends StatelessWidget {
                                       Container(
                                         height: 150,
                                         width: 103,
-                                        color: Colors.grey,
-                                        child: Center(
-                                          child: SizedBox(
-                                            width: 30,
-                                            height: 30,
-                                            child: CircularProgressIndicator(
-                                              color: kSecondaryColor,
-                                            ),
-                                          ),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(kCardBorderRadius),
+                                        ),
+                                        constraints: BoxConstraints(maxHeight: 170),
+                                        child: Image.asset(
+                                          'resources/images/fake_user.png',
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
                                       Container(

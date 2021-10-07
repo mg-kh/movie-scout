@@ -14,9 +14,14 @@ class SearchController extends GetxController{
     isLoading(true);
 
     var response = await SearchApiService().remoteSearchEverything(query: query);
+    print(response);
+
     if(response == null){
       print('null');
     }
+
+    // searchMovieModelFromJson('${response[0].body}'),
+    // searchPersonModelFromJson('${response[1].body}')
 
     searchMovieData(response[0].results);
     searchPersonData(response[1].results);

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:movie/components/genre_widget.dart';
 import 'package:movie/components/movie_card.dart';
 import 'package:movie/components/shimmer_widget.dart';
+import 'package:movie/components/try_again.dart';
 import 'package:movie/constants.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:movie/controller/genre_controller.dart';
@@ -23,9 +24,11 @@ class Home extends StatelessWidget {
         backgroundColor: context.theme.backgroundColor,
         body: Container(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: kHorizontalPaddingValue),
+            padding: EdgeInsets.only(
+              left: kHorizontalPaddingValue,
+              right: kHorizontalPaddingValue,
+            ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //!Hero
                 Stack(
@@ -69,15 +72,16 @@ class Home extends StatelessWidget {
                         children: [
                           Text(
                             'Movie Scout',
-                            style:
-                                TextStyle(fontSize: kHeroTitleSize, color: kPrimaryColor),
+                            style: TextStyle(
+                                fontSize: kHeroTitleSize, color: kPrimaryColor),
                           ),
                           SizedBox(
                             height: 7,
                           ),
                           Text(
                             'Explore movies and \nrelated data.',
-                            style: TextStyle(color: kPrimaryColor, fontSize: kHeroTextSize),
+                            style: TextStyle(
+                                color: kPrimaryColor, fontSize: kHeroTextSize),
                           ),
                           SizedBox(
                             height: 20,
@@ -174,40 +178,57 @@ class Home extends StatelessWidget {
                 ),
 
                 //!Movies
-                Expanded(
-                  child: Obx(() {
-                    if (!movieController.isLoading.value) {
-                      return StaggeredGridView.countBuilder(
-                        controller: movieController.scrollController,
-                        itemCount: movieController.movieData.length,
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 7,
-                        mainAxisSpacing: 5,
-                        shrinkWrap: true,
-                        staggeredTileBuilder: (int i) =>
-                            StaggeredTile.count(1, 1.95),
-                        itemBuilder: (_, i) {
-                          return MovieCard(movie: movieController.movieData[i]);
+                Obx(() {
+                  if (movieController.isErrorOccur.value == true) {
+                    return Expanded(
+                      child: TryAgain(
+                        click: () {
+                          movieController.getMovieData(
+                              pageNumber: 1,
+                              genreId: movieController.genreIdValue.value);
                         },
-                      );
-                    } else {
-                      return GridView(
-                        padding: EdgeInsets.only(top: 10, bottom: 30),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        color: context.theme.primaryColor,
+                      ),
+                    );
+                  } else {
+                    return Expanded(
+                      child: Obx(() {
+                        if (!movieController.isLoading.value) {
+                          return StaggeredGridView.countBuilder(
+                            controller: movieController.scrollController,
+                            itemCount: movieController.movieData.length,
                             crossAxisCount: 3,
-                            mainAxisSpacing: 15,
-                            crossAxisSpacing: 15,
-                            childAspectRatio: 0.65),
-                        children: [
-                          ...List.generate(9, (index) => ShimmerWidget())
-                        ],
-                      );
-                    }
-                  }),
-                ),
+                            crossAxisSpacing: 7,
+                            mainAxisSpacing: 5,
+                            shrinkWrap: true,
+                            staggeredTileBuilder: (int i) =>
+                                StaggeredTile.count(1, 1.95),
+                            itemBuilder: (_, i) {
+                              return MovieCard(
+                                  movie: movieController.movieData[i]);
+                            },
+                          );
+                        } else {
+                          return GridView(
+                            padding: EdgeInsets.only(top: 10, bottom: 30),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    mainAxisSpacing: 15,
+                                    crossAxisSpacing: 15,
+                                    childAspectRatio: 0.65),
+                            children: [
+                              ...List.generate(9, (index) => ShimmerWidget())
+                            ],
+                          );
+                        }
+                      }),
+                    );
+                  }
+                }),
 
                 //!Loading next page
-                Obx((){
+                Obx(() {
                   if (movieController.isNextPageLoading.value)
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -215,27 +236,29 @@ class Home extends StatelessWidget {
                         Container(
                           width: 100,
                           height: 40,
-                          margin: EdgeInsets.symmetric(
-                              vertical: 15
-                          ),
+                          margin: EdgeInsets.symmetric(vertical: 15),
                           decoration: BoxDecoration(
                               color: kSecondaryColor,
-                              borderRadius: BorderRadius.circular(kCardBorderRadius)
-                          ),
+                              borderRadius:
+                                  BorderRadius.circular(kCardBorderRadius)),
                           child: Center(
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text('Loading', style: TextStyle(
-                                    color: Colors.white,
-                                  fontSize: 13
-                                ),),
-                                SizedBox(height: 5,),
+                                Text(
+                                  'Loading',
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 13),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
                                 SizedBox(
                                   width: 50,
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(kCardBorderRadius),
+                                    borderRadius: BorderRadius.circular(
+                                        kCardBorderRadius),
                                     child: LinearProgressIndicator(
                                       color: Colors.white,
                                       backgroundColor: kSecondaryColor,
@@ -251,7 +274,6 @@ class Home extends StatelessWidget {
                   else
                     return SizedBox();
                 }),
-
               ],
             ),
           ),

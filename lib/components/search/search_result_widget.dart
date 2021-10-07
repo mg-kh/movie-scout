@@ -10,15 +10,15 @@ class SearchResultWidget extends StatelessWidget {
   final id;
   final text;
   final image;
-  final String? year;
-  final String? rating;
-  final String routeType;
+  final year;
+  final rating;
+  final routeType;
   SearchResultWidget({
     required this.id,
     required this.text,
     required this.image,
-    this.year,
-    this.rating,
+    this.year : '',
+    this.rating : '',
     required this.routeType,
   });
 
@@ -50,23 +50,23 @@ class SearchResultWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(kCardBorderRadius),
                     child: Container(
                       width: 70,
+                      height: 150,
                       color: Colors.grey.withOpacity(0.5),
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          SizedBox(
-                            width: 30,
-                            height: 30,
-                            child: CircularProgressIndicator(
-                              color: kSecondaryColor,
-                            ),
+                          Image.asset(
+                            'resources/images/fake_poster.png',
+                            width: double.infinity,
+                            height: 150,
+                            fit: BoxFit.cover,
                           ),
                           FadeInImage.memoryNetwork(
                             placeholder: kTransparentImage,
                             image:
                                 'https://www.themoviedb.org/t/p/w220_and_h330_face$image',
                             width: double.infinity,
-                            height: double.infinity,
+                            height: 150,
                             fit: BoxFit.cover,
                           )
                         ],
@@ -115,7 +115,7 @@ class SearchResultWidget extends StatelessWidget {
                   ),
 
                   //!release date
-                  if (year != null)
+                  if (year != "")
                     Column(
                       children: [
                         Text(
@@ -132,7 +132,7 @@ class SearchResultWidget extends StatelessWidget {
                     ),
 
                   //  !Rating
-                  if (rating != null)
+                  if (rating != "")
                     Container(
                       child: Row(
                         children: [
@@ -161,6 +161,7 @@ class SearchResultWidget extends StatelessWidget {
               ),
             ),
 
+            //! Icon button
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

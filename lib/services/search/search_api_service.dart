@@ -17,6 +17,7 @@ class SearchApiService{
           http.get(personUrl)
         ]);
 
+
         return [
           searchMovieModelFromJson('${response[0].body}'),
           searchPersonModelFromJson('${response[1].body}')

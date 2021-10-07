@@ -37,7 +37,7 @@ class CastMovieWidget extends StatelessWidget {
                 ...castMovies.map(
                   (movie) => GestureDetector(
                     onTap: () {
-                      Get.toNamed('/detail/${movie.id}');
+                      Get.offNamed('/detail/${movie.id}');
                     },
                     child: Container(
                       margin: EdgeInsets.only(right: 18),
@@ -53,18 +53,10 @@ class CastMovieWidget extends StatelessWidget {
                                         kCardBorderRadius),
                                     child: Stack(
                                       children: [
-                                        Container(
-                                          width: 120,
-                                          color: Colors.grey,
-                                          child: Center(
-                                            child: SizedBox(
-                                              width: 30,
-                                              height: 30,
-                                              child: CircularProgressIndicator(
-                                                color: kSecondaryColor,
-                                              ),
-                                            ),
-                                          ),
+                                        Image.asset(
+                                          'resources/images/fake_poster.png',
+                                          height: double.infinity,
+                                          fit: BoxFit.cover,
                                         ),
                                         FadeInImage.memoryNetwork(
                                           placeholder: kTransparentImage,

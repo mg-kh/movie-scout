@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:movie/constants.dart';
+import 'package:movie/controller/cast/cast_movie_controller.dart';
+import 'package:movie/controller/movie_detail/cast_controller.dart';
+import 'package:movie/controller/movie_detail/movie_detail_controller.dart';
+import 'package:movie/controller/movie_detail/related_movie_controller.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class RelatedMovieWidget extends StatelessWidget {
@@ -56,7 +60,7 @@ class RelatedMovieWidget extends StatelessWidget {
             children: [
               ...relMovies.map((movie) => GestureDetector(
                     onTap: () {
-                      Get.toNamed('/detail/${movie.id}');
+                      Get.offNamed('/detail/${movie.id}');
                     },
                     child: Container(
                       child: Column(
@@ -72,15 +76,16 @@ class RelatedMovieWidget extends StatelessWidget {
                               child: Stack(
                                 children: [
                                   Container(
-                                    color: Colors.grey,
-                                    child: Center(
-                                      child: SizedBox(
-                                        width: 30,
-                                        height: 30,
-                                        child: CircularProgressIndicator(
-                                          color: kSecondaryColor,
-                                        ),
-                                      ),
+                                    decoration: BoxDecoration(
+                                      borderRadius:
+                                      BorderRadius.circular(kCardBorderRadius),
+                                    ),
+                                    constraints: BoxConstraints(maxHeight: 170),
+                                    child: Image.asset(
+                                      'resources/images/fake_poster.png',
+                                      width: double.infinity,
+                                      height: double.infinity,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
                                   FadeInImage.memoryNetwork(

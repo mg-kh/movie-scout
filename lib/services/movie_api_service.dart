@@ -10,11 +10,13 @@ class MovieApiService {
   Future remoteGetMovieData({required pageNumber, required genreId}) async {
     var url = Uri.parse(
         'https://api.themoviedb.org/3/discover/movie?api_key=$apiKey&with_genres=$genreId&page=$pageNumber&include_adult=${settingController.getAdultContent()}');
-    try {
-      var response = await http.get(url);
+
+    var response = await http.get(url);
+
+    if(response.statusCode == 200){
       return movieModelFromJson('${response.body}');
-    } catch (e) {
-      return null;
+    }else{
+      throw Exception('Error occur');
     }
   }
 }

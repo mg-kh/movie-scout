@@ -83,101 +83,93 @@ class Result {
 
 class KnownFor {
   KnownFor({
-    required this.adult,
     required this.backdropPath,
+    required this.firstAirDate,
     required this.genreIds,
     required this.id,
     required this.mediaType,
+    required this.name,
+    required this.originCountry,
     required this.originalLanguage,
-    required this.originalTitle,
+    required this.originalName,
     required this.overview,
     required this.posterPath,
+    required this.voteAverage,
+    required this.voteCount,
+    required this.adult,
+    required this.originalTitle,
     required this.releaseDate,
     required this.title,
     required this.video,
-    required this.voteAverage,
-    required this.voteCount,
-    required this.firstAirDate,
-    required this.name,
-    required this.originCountry,
-    required this.originalName,
   });
 
-  bool? adult;
   String? backdropPath;
+  DateTime? firstAirDate;
   List<int>? genreIds;
   int? id;
   MediaType? mediaType;
-  OriginalLanguage? originalLanguage;
-  String? originalTitle;
-  String? overview;
-  String? posterPath;
-  DateTime? releaseDate;
-  String? title;
-  bool? video;
-  double? voteAverage;
-  int? voteCount;
-  DateTime? firstAirDate;
   String? name;
   List<String>? originCountry;
+  String? originalLanguage;
   String? originalName;
+  String? overview;
+  String? posterPath;
+  double? voteAverage;
+  int? voteCount;
+  bool? adult;
+  String? originalTitle;
+  String? releaseDate;
+  String? title;
+  bool? video;
 
   factory KnownFor.fromJson(Map<String, dynamic> json) => KnownFor(
-    adult: json["adult"] == null ? null : json["adult"],
     backdropPath: json["backdrop_path"] == null ? null : json["backdrop_path"],
+    firstAirDate: json["first_air_date"] == null ? null : DateTime.parse(json["first_air_date"]),
     genreIds: json["genre_ids"] == null ? null : List<int>.from(json["genre_ids"].map((x) => x)),
     id: json["id"] == null ? null : json["id"],
     mediaType: json["media_type"] == null ? null : mediaTypeValues.map[json["media_type"]],
-    originalLanguage: json["original_language"] == null ? null : originalLanguageValues.map[json["original_language"]],
-    originalTitle: json["original_title"] == null ? null : json["original_title"],
-    overview: json["overview"] == null ? null : json["overview"],
-    posterPath: json["poster_path"] == null ? null : json["poster_path"],
-    releaseDate: json["release_date"] == null ? null : DateTime.parse(json["release_date"]),
-    title: json["title"] == null ? null : json["title"],
-    video: json["video"] == null ? null : json["video"],
-    voteAverage: json["vote_average"] == null ? null : json["vote_average"].toDouble(),
-    voteCount: json["vote_count"] == null ? null : json["vote_count"],
-    firstAirDate: json["first_air_date"] == null ? null : DateTime.parse(json["first_air_date"]),
     name: json["name"] == null ? null : json["name"],
     originCountry: json["origin_country"] == null ? null : List<String>.from(json["origin_country"].map((x) => x)),
+    originalLanguage: json["original_language"] == null ? null : json["original_language"],
     originalName: json["original_name"] == null ? null : json["original_name"],
+    overview: json["overview"] == null ? null : json["overview"],
+    posterPath: json["poster_path"] == null ? null : json["poster_path"],
+    voteAverage: json["vote_average"] == null ? null : json["vote_average"].toDouble(),
+    voteCount: json["vote_count"] == null ? null : json["vote_count"],
+    adult: json["adult"] == null ? null : json["adult"],
+    originalTitle: json["original_title"] == null ? null : json["original_title"],
+    releaseDate: json["release_date"] == null ? null : json["release_date"],
+    title: json["title"] == null ? null : json["title"],
+    video: json["video"] == null ? null : json["video"],
   );
 
   Map<String, dynamic> toJson() => {
-    "adult": adult == null ? null : adult,
     "backdrop_path": backdropPath == null ? null : backdropPath,
+    "first_air_date": firstAirDate == null ? null : "${firstAirDate!.year.toString().padLeft(4, '0')}-${firstAirDate!.month.toString().padLeft(2, '0')}-${firstAirDate!.day.toString().padLeft(2, '0')}",
     "genre_ids": genreIds == null ? null : List<dynamic>.from(genreIds!.map((x) => x)),
     "id": id == null ? null : id,
     "media_type": mediaType == null ? null : mediaTypeValues.reverse[mediaType],
-    "original_language": originalLanguage == null ? null : originalLanguageValues.reverse[originalLanguage],
-    "original_title": originalTitle == null ? null : originalTitle,
-    "overview": overview == null ? null : overview,
-    "poster_path": posterPath == null ? null : posterPath,
-    "release_date": releaseDate == null ? null : "${releaseDate!.year.toString().padLeft(4, '0')}-${releaseDate!.month.toString().padLeft(2, '0')}-${releaseDate!.day.toString().padLeft(2, '0')}",
-    "title": title == null ? null : title,
-    "video": video == null ? null : video,
-    "vote_average": voteAverage == null ? null : voteAverage,
-    "vote_count": voteCount == null ? null : voteCount,
-    "first_air_date": firstAirDate == null ? null : "${firstAirDate!.year.toString().padLeft(4, '0')}-${firstAirDate!.month.toString().padLeft(2, '0')}-${firstAirDate!.day.toString().padLeft(2, '0')}",
     "name": name == null ? null : name,
     "origin_country": originCountry == null ? null : List<dynamic>.from(originCountry!.map((x) => x)),
+    "original_language": originalLanguage == null ? null : originalLanguage,
     "original_name": originalName == null ? null : originalName,
+    "overview": overview == null ? null : overview,
+    "poster_path": posterPath == null ? null : posterPath,
+    "vote_average": voteAverage == null ? null : voteAverage,
+    "vote_count": voteCount == null ? null : voteCount,
+    "adult": adult == null ? null : adult,
+    "original_title": originalTitle == null ? null : originalTitle,
+    "release_date": releaseDate == null ? null : releaseDate,
+    "title": title == null ? null : title,
+    "video": video == null ? null : video,
   };
 }
 
-enum MediaType { MOVIE, TV }
+enum MediaType { TV, MOVIE }
 
 final mediaTypeValues = EnumValues({
   "movie": MediaType.MOVIE,
   "tv": MediaType.TV
-});
-
-enum OriginalLanguage { DE, EN, IT }
-
-final originalLanguageValues = EnumValues({
-  "de": OriginalLanguage.DE,
-  "en": OriginalLanguage.EN,
-  "it": OriginalLanguage.IT
 });
 
 class EnumValues<T> {
