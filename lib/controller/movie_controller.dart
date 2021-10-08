@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie/constants.dart';
-import 'package:movie/model/movie_model.dart';
+import 'package:movie/model/movie/result.dart';
 import 'package:movie/services/movie_api_service.dart';
 
 class MovieController extends GetxController {

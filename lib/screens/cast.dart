@@ -25,6 +25,7 @@ class Cast extends StatelessWidget {
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(
+              top: 20,
               left: kHorizontalPaddingValue,
               right: kHorizontalPaddingValue,
             ),

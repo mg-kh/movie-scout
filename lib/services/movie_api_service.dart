@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie/controller/setting_controller.dart';
-import 'package:movie/model/movie_model.dart';
+import 'package:movie/model/movie/movie.dart';
 
 class MovieApiService {
   static String apiKey = '08058bd6133df94466358e37bbf4eb27';
@@ -14,7 +16,7 @@ class MovieApiService {
     var response = await http.get(url);
 
     if(response.statusCode == 200){
-      return movieModelFromJson('${response.body}');
+      return Movie.fromJson(jsonDecode(response.body));
     }else{
       throw Exception('Error occur');
     }

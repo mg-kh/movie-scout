@@ -5,18 +5,18 @@ import 'package:movie/components/no_data_found.dart';
 import 'package:movie/components/search/search_result_widget.dart';
 import 'package:movie/components/shimmer_widget.dart';
 import 'package:movie/constants.dart';
-import 'package:movie/controller/search/search_controller.dart';
+import 'package:movie/controller/search_movie/search_movie_controller.dart';
 
 class MovieTab extends StatelessWidget {
-  final SearchController searchController = Get.find();
+  final SearchMovieController searchMovieController = Get.put(SearchMovieController());
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => Container(
-          child: searchController.isLoading.value != true
-              ? searchController.searchMovieData.length != 0
+          child: searchMovieController.isLoading.value != true
+              ? searchMovieController.resultMovieData.length != 0
                   ? StaggeredGridView.countBuilder(
-                      itemCount: searchController.searchMovieData.length,
+                      itemCount: searchMovieController.resultMovieData.length,
                       crossAxisCount: 4,
                       crossAxisSpacing: 5,
                       mainAxisSpacing: 15,
@@ -27,12 +27,12 @@ class MovieTab extends StatelessWidget {
                       itemBuilder: (_, i) {
                         return SearchResultWidget(
                           routeType: 'detail',
-                          id: searchController.searchMovieData[i].id,
-                          image: searchController.searchMovieData[i].posterPath,
-                          text: searchController.searchMovieData[i].title,
-                          year: searchController.searchMovieData[i].releaseDate,
-                          rating: searchController
-                              .searchMovieData[i].voteAverage
+                          id: searchMovieController.resultMovieData[i].id,
+                          image: searchMovieController.resultMovieData[i].posterPath,
+                          text: searchMovieController.resultMovieData[i].title,
+                          year: searchMovieController.resultMovieData[i].releaseDate,
+                          rating: searchMovieController
+                              .resultMovieData[i].voteAverage
                               .toString(),
                         );
                       },

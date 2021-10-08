@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:movie/model/cast/cast_movie_model.dart';
+import 'package:movie/model/cast/cast_movie/cast.dart';
 import 'package:movie/services/cast/cast_movie_api_service.dart';
 import 'package:flutter/material.dart';
 

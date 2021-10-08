@@ -5,18 +5,18 @@ import 'package:movie/components/no_data_found.dart';
 import 'package:movie/components/search/search_result_widget.dart';
 import 'package:movie/components/shimmer_widget.dart';
 import 'package:movie/constants.dart';
-import 'package:movie/controller/search/search_controller.dart';
+import 'package:movie/controller/search_person/search_person_controller.dart';
 
 class PersonTab extends StatelessWidget {
-  final SearchController searchController = Get.find();
+  final SearchPersonController searchPersonController = Get.put(SearchPersonController());
 
   @override
   Widget build(BuildContext context) {
     return Obx(() => Container(
-          child: searchController.isLoading.value != true
-              ? searchController.searchPersonData.length != 0
+          child: searchPersonController.isLoading.value != true
+              ? searchPersonController.resultPersonData.length != 0
                   ? StaggeredGridView.countBuilder(
-                      itemCount: searchController.searchPersonData.length,
+                      itemCount: searchPersonController.resultPersonData.length,
                       crossAxisCount: 4,
                       crossAxisSpacing: 5,
                       mainAxisSpacing: 15,
@@ -27,10 +27,10 @@ class PersonTab extends StatelessWidget {
                       itemBuilder: (_, i) {
                         return SearchResultWidget(
                           routeType: 'cast',
-                          id: searchController.searchPersonData[i].id,
+                          id: searchPersonController.resultPersonData[i].id,
                           image:
-                              searchController.searchPersonData[i].profilePath,
-                          text: searchController.searchPersonData[i].name,
+                              searchPersonController.resultPersonData[i].profilePath,
+                          text: searchPersonController.resultPersonData[i].name,
                         );
                       },
                     )

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:movie/model/movie_detail/cast_model.dart';
+import 'package:movie/model/movie_detail/cast/cast_model.dart';
 import 'package:movie/services/movie_detail/cast_api_service.dart';
 
 class CastController extends GetxController {
-  var castData = <Cast>[].obs;
+  var castData = <CastModel>[].obs;
   var isLoading = true.obs;
 
   Future getCastData({required movieId}) async {
     isLoading(true);
     try {
       var cast = await CastApiService().remoteGetCastData(movieId: movieId);
-
-      castData(cast!.cast);
+      castData(cast.cast);
       isLoading(false);
     } catch (e) {
       Get.defaultDialog(

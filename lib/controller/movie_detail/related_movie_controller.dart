@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:movie/model/movie_detail/related_movie_model.dart';
+import 'package:movie/model/movie_detail/related_movie/result.dart';
 import 'package:movie/services/movie_detail/related_movie_api_service.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,7 @@ class RelatedMovieController extends GetxController {
     try {
       var relMovies = await RelatedMovieApiService()
           .remoteGetRelatedMovieData(movieId: movieId);
-      relMovieData(relMovies!.results);
+      relMovieData(relMovies.results);
       currentPage(relMovies.page);
       totalPages(relMovies.totalPages);
       totalMovies(relMovies.totalResults);

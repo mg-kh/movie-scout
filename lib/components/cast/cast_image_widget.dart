@@ -32,11 +32,11 @@ class CastImageWidget extends StatelessWidget {
                 shrinkWrap: true,
                 padding: EdgeInsets.only(bottom: 20),
                 staggeredTileBuilder: (int index) =>
-                    StaggeredTile.count(1, index % 2 == 0 ? 2 : 1),
+                    StaggeredTile.count(1,1),
                 itemCount: images.length,
                 mainAxisSpacing: 8,
                 crossAxisSpacing: 8,
-                crossAxisCount: 4,
+                crossAxisCount: 3,
                 itemBuilder: (_, i) {
                   return ClipRRect(
                     borderRadius: BorderRadius.circular(kCardBorderRadius),

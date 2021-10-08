@@ -6,7 +6,6 @@ import 'package:movie/controller/search/search_controller.dart';
 import 'package:movie/screens/movie_tab.dart';
 import 'package:movie/screens/person_tab.dart';
 import 'package:movie/screens/tv_show_tab.dart';
-import 'package:movie/constants.dart';
 
 class Search extends StatelessWidget {
   final SearchController searchController = Get.put(SearchController());

@@ -1,9 +1,25 @@
 import 'package:get/get.dart';
+import 'package:movie/model/cast/cast_detail/cast_detail.dart';
 import 'package:movie/services/cast/cast_detail_api_service.dart';
 import 'package:flutter/material.dart';
 
 class CastDetailController extends GetxController {
-  var castDetailData = Object().obs;
+  var castDetailData = CastDetail(
+    imdbId: '',
+    biography: '',
+    deathday: '',
+    id: 0,
+    adult: false,
+    homepage: '',
+    name: '',
+    birthday: '',
+    placeOfBirth: '',
+    gender: 0,
+    knownForDepartment: '',
+    profilePath: '',
+    popularity: 0.0,
+    alsoKnownAs: [],
+  ).obs;
   var isLoading = true.obs;
 
   Future<void> getCastDetailData({required personId}) async {
