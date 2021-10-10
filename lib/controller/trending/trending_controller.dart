@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie/constants.dart';
-import 'package:movie/model/movie/result.dart';
-import 'package:movie/services/movie_api_service.dart';
+import 'package:movie/model/trending/result.dart';
+import 'package:movie/services/trending/trending_api_service.dart';
 
-class MovieController extends GetxController {
+class TrendingController extends GetxController {
   var isLoading = false.obs;
-  var movieData = <Result>[].obs;
+  var trendingData = <Result>[].obs;
   var currentPage = 1.obs;
   var totalPages = 0.obs;
   var totalMovies = 0.obs;
-  var genreIdValue = 28.obs;
   final scrollController = ScrollController();
   var isNextPageLoading = false.obs;
   var isErrorOccur = false.obs;
 
-  Future getMovieData({pageNumber: 1, genreId: 28}) async {
+  Future getTrendingData({pageNumber: 1, genreId: 28}) async {
     isErrorOccur(true);
 
     //!check loading style for specific page
@@ -23,24 +22,11 @@ class MovieController extends GetxController {
       isLoading(true);
     }
 
-    //! check same genre or not
-    if (genreId != genreIdValue.value) {
-      movieData.value = [];
-    }
-
-    //! filter several call same genre
-    if (movieData.length > 0 && pageNumber == 1) {
-      movieData.value = [];
-    }
-
-    //! change genre ui active state
-    genreIdValue.value = genreId;
-
     try {
-      var movie = await MovieApiService()
-          .remoteGetMovieData(pageNumber: pageNumber, genreId: genreId);
+      var movie = await TrendingApiService()
+          .remoteGetTrendingMovieData(pageNumber: pageNumber);
 
-      movieData.value = [...movieData, ...movie.results];
+      trendingData.value = [...trendingData, ...movie.results];
       currentPage(movie.page);
       totalPages(movie.totalPages);
       totalMovies(movie.totalResults);
@@ -62,8 +48,8 @@ class MovieController extends GetxController {
         currentPage.value <= totalPages.value) {
       if (currentPage.value < totalPages.value) {
         currentPage.value++;
-        await getMovieData(
-            pageNumber: currentPage.value, genreId: genreIdValue.value);
+        await getTrendingData(
+            pageNumber: currentPage.value);
         isNextPageLoading.value = false;
       } else {
         isNextPageLoading.value = false;
@@ -98,6 +84,6 @@ class MovieController extends GetxController {
     super.onInit();
     currentPage.value = 1;
     scrollController.addListener(listenScrolling);
-    getMovieData();
+    getTrendingData();
   }
 }

@@ -30,7 +30,8 @@ class MovieCard extends StatelessWidget {
                           children: [
                             Image.asset(
                               'resources/images/fake_poster.png',
-                              height:180,
+                              height: 190,
+                              width: double.infinity,
                               fit: BoxFit.cover,
                             ),
                             ClipRRect(
@@ -40,7 +41,8 @@ class MovieCard extends StatelessWidget {
                                 placeholder: kTransparentImage,
                                 image:
                                     'https://www.themoviedb.org/t/p/w220_and_h330_face${movie.posterPath}',
-                                height: 180,
+                                height: 190,
+                                width: double.infinity,
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -48,12 +50,12 @@ class MovieCard extends StatelessWidget {
                         ),
                       )
                     : NoFileWidget(
-                        width: 150,
-                        height: 175,
+                        width: double.infinity,
+                        height: 190,
                       ),
 
                 //!release date
-                if (movie.releaseDate != '')
+                if ((movie.releaseDate ?? movie.firstAirDate) != '')
                   Positioned(
                     bottom: 0,
                     child: Container(
@@ -62,10 +64,12 @@ class MovieCard extends StatelessWidget {
                       decoration: BoxDecoration(
                           color: kSecondaryColor,
                           borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(kCardBorderRadius))),
+                            bottomLeft: Radius.circular(kCardBorderRadius),
+                            topRight: Radius.circular(kCardBorderRadius),
+                          )),
                       child: Center(
                         child: Text(
-                          '${movie.releaseDate.toString().substring(0, 4)}',
+                          '${(movie.releaseDate ?? movie.firstAirDate.toString()).substring(0, 4)}',
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: kMovieCardTitleSize),
@@ -75,12 +79,14 @@ class MovieCard extends StatelessWidget {
                   )
               ],
             ),
+
             SizedBox(
               height: 7,
             ),
+
             //!movie title
             Text(
-              '${movie.title}',
+              '${movie.title ?? movie.name}',
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(

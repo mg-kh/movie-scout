@@ -3,7 +3,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 //!Color
 HexColor kPrimaryColor = HexColor('#ffffff');
-HexColor kSecondaryColor = HexColor('#E32227');
+HexColor kSecondaryColor = HexColor('#DE4463');
 Color kSecondaryLightColor = kSecondaryColor.withOpacity(0.2);
 
 

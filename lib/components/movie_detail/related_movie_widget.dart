@@ -17,40 +17,17 @@ class RelatedMovieWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //!Title
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Related Movies',
-              style: TextStyle(
-                  fontSize: kSectionTitleSize,
-                  fontWeight: FontWeight.bold,color: context.theme.primaryColor,),
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Row(
-                children: [
-                  Text(
-                    'View all',
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                        fontStyle: FontStyle.italic),
-                  ),
-                  Icon(
-                    FeatherIcons.chevronsRight,
-                    color: Colors.grey,
-                    size: 18,
-                  )
-                ],
-              ),
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.transparent, elevation: 0),
-            ),
-          ],
+        Text(
+          'Related Movies',
+          style: TextStyle(
+            fontSize: kSectionTitleSize,
+            fontWeight: FontWeight.bold,color: context.theme.primaryColor,),
         ),
+
+        SizedBox(height: 10,),
 
         //!RelatedMovies
         SingleChildScrollView(

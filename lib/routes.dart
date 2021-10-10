@@ -4,10 +4,12 @@ import 'package:movie/screens/detail.dart';
 import 'package:movie/screens/home.dart';
 import 'package:movie/screens/search.dart';
 import 'package:movie/screens/setting.dart';
+import 'package:movie/screens/trending.dart';
 
 import 'controller/movie_detail/cast_controller.dart';
 import 'controller/movie_detail/movie_detail_controller.dart';
 import 'controller/movie_detail/related_movie_controller.dart';
+import 'screens/popular.dart';
 
 List<GetPage> routes = [
   GetPage(
@@ -31,6 +33,8 @@ List<GetPage> routes = [
     name: '/cast/:id',
     page: () => Cast(),
   ),
+  GetPage(name: '/popular', page: () => Popular()),
+  GetPage(name: '/trending', page: () => Trending()),
   GetPage(
     name: '/setting',
     page: () => Setting(),

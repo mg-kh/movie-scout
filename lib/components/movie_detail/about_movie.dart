@@ -67,7 +67,7 @@ class AboutMovie extends StatelessWidget {
                     width: 50,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.6),
+                        color: kSecondaryColor.withOpacity(0.8),
                         shape: BoxShape.circle),
                     child: Center(
                       child: IconButton(

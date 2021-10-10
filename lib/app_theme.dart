@@ -9,7 +9,7 @@ class AppTheme {
   );
 
   static final dark = ThemeData.light().copyWith(
-    backgroundColor: HexColor('#082032'),
+    backgroundColor: HexColor('#2C394B'),
     primaryColor: Colors.white,
     cardColor: HexColor('#2C394B'),
   );
