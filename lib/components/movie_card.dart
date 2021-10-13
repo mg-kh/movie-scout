@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:movie/components/no_file_widget.dart';
 import 'package:movie/constants.dart';
@@ -76,7 +77,38 @@ class MovieCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                  )
+                  ),
+
+              //  !Rating
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    width: 55,
+                    height: 20,
+                    decoration: BoxDecoration(
+                        color: kSecondaryColor,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(kCardBorderRadius),
+                          topRight: Radius.circular(kCardBorderRadius),
+                        )),
+                    child: Center(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(FeatherIcons.star, size: 13,color: Colors.white,),
+                          SizedBox(width: 5,),
+                          Text(
+                            '${movie.voteAverage}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: kMovieCardTitleSize),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
 
@@ -87,7 +119,7 @@ class MovieCard extends StatelessWidget {
             //!movie title
             Text(
               '${movie.title ?? movie.name}',
-              maxLines: 3,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: context.theme.primaryColor,

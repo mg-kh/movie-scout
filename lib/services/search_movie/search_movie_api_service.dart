@@ -10,8 +10,8 @@ class SearchMovieApiService{
   static String apiKey = '08058bd6133df94466358e37bbf4eb27';
   final SettingController settingController = Get.find();
 
-  Future remoteSearchMovieData({required query})async{
-    var url = Uri.parse('https://api.themoviedb.org/3/search/movie?api_key=$apiKey&language=en-US&page=1&include_adult=${settingController.getAdultContent()}&query=$query');
+  Future remoteSearchMovieData({required pageNumber, required query})async{
+    var url = Uri.parse('https://api.themoviedb.org/3/search/movie?api_key=$apiKey&language=en-US&page=$pageNumber&include_adult=${settingController.getAdultContent()}&query=$query');
     var response = await http.get(url);
 
     if(response.statusCode == 200){

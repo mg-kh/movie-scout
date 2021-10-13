@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:movie/components/no_file_widget.dart';
 import 'package:movie/constants.dart';
@@ -20,7 +19,7 @@ class AboutCastWidget extends StatelessWidget {
         children: [
           Container(
             child: Stack(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.center,
               clipBehavior: Clip.none,
               children: [
                 //  !base
@@ -47,7 +46,7 @@ class AboutCastWidget extends StatelessWidget {
                       //!filter
                       Positioned.fill(
                         child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                           child: Container(
                             color: Colors.black.withOpacity(0.2),
                           ),
@@ -59,7 +58,6 @@ class AboutCastWidget extends StatelessWidget {
 
                 //  !profile
                 Positioned(
-                    bottom: -30,
                     child: cast.profilePath != null
                         ? ClipOval(
                             child: Stack(
@@ -99,7 +97,7 @@ class AboutCastWidget extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 40,
+            height: 10,
           ),
 
           //!Name

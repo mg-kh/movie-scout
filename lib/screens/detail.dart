@@ -9,11 +9,13 @@ import 'package:movie/constants.dart';
 import 'package:movie/controller/movie_detail/cast_controller.dart';
 import 'package:movie/controller/movie_detail/movie_detail_controller.dart';
 import 'package:movie/controller/movie_detail/related_movie_controller.dart';
+import 'package:movie/controller/movie_detail/trailer_controller.dart';
 
 class Detail extends StatelessWidget {
   final MovieDetailController movieDetailController = Get.find();
   final CastController castController = Get.find();
   final RelatedMovieController relatedMovieController = Get.find();
+  final TrailerController trailerController = Get.put(TrailerController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class Detail extends StatelessWidget {
             if (!movieDetailController.isLoading.value) {
               return AboutMovie(
                 movieDetail: movieDetailController.movieDetail.value,
+                trailerController: trailerController,
               );
             } else {
               return AboutMovieLoading();

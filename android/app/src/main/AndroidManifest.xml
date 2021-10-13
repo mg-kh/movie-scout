@@ -2,8 +2,8 @@
     package="com.example.movie">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="movie"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Movie Scout"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

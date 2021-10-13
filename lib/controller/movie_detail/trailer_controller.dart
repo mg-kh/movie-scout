@@ -16,4 +16,10 @@ class TrailerController extends GetxController {
       isLoading(false);
     }
   }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getTrailerData(movieId: Get.parameters['id']);
+  }
 }

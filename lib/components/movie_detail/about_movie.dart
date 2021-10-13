@@ -9,9 +9,8 @@ import 'package:movie/controller/movie_detail/trailer_controller.dart';
 
 class AboutMovie extends StatelessWidget {
   late final movieDetail;
-  AboutMovie({required this.movieDetail});
-
-  final TrailerController trailerController = Get.put(TrailerController());
+  late final trailerController;
+  AboutMovie({required this.movieDetail ,required this.trailerController});
 
   @override
   Widget build(BuildContext context) {
@@ -72,15 +71,7 @@ class AboutMovie extends StatelessWidget {
                     child: Center(
                       child: IconButton(
                         onPressed: () {
-                          showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              builder: (_) {
-                                return TrailerWidget();
-                              });
-                          trailerController.getTrailerData(
-                              movieId: Get.parameters['id']);
+                          Get.dialog(TrailerWidget(trailerController: trailerController,));
                         },
                         icon: Icon(
                           FeatherIcons.play,
@@ -100,6 +91,7 @@ class AboutMovie extends StatelessWidget {
           height: 20,
         ),
 
+        //!title and overview
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -262,6 +254,7 @@ class AboutMovie extends StatelessWidget {
             )
           ],
         ),
+
       ],
     );
   }

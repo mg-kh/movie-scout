@@ -21,3 +21,7 @@ double kGeneralTextSize = 13;
 
 //!borderRadius
 double kCardBorderRadius = 10;
+
+//!divider
+double kSectionDividerHeight = 25;
+double kTitleAndContentHeight = 10;

@@ -37,6 +37,7 @@ class CastMovieWidget extends StatelessWidget {
                 ...castMovies.map(
                   (movie) => GestureDetector(
                     onTap: () {
+                      Get.back();
                       Get.offNamed('/detail/${movie.id}');
                     },
                     child: Container(

@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     var routes = [
       {"name": "Popular movies", "route": "/popular"},
-      {"name": "Tending movies", "route": "/trending"},
+      {"name": "Popular Tv shows", "route": "/popular-tv-show"},
     ];
 
     return Scaffold(
@@ -59,92 +59,38 @@ class Home extends StatelessWidget {
               bottomRight: Radius.circular(kCardBorderRadius),
             )),
             actions: [
-              //!dropdown menu
+              //!dropdown button
               Column(
                 children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: context.theme.backgroundColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(kCardBorderRadius))),
-                    onPressed: () {
-                      Get.dialog(
-                          Stack(
-                            alignment: Alignment.topRight,
-                            children: [
-                              Positioned(
-                                right: 50,
-                                top: 50,
-                                child: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.circular(kCardBorderRadius),
-                                  child: Container(
-                                    width: 150,
-                                    height: 110,
-                                    child: Scaffold(
-                                      backgroundColor:
-                                          context.theme.backgroundColor,
-                                      body: Padding(
-                                        padding: EdgeInsets.all(15),
-                                        child: ListView.separated(
-                                          itemCount: routes.length,
-                                          separatorBuilder: (_, i){
-                                            return SizedBox();
-                                          },
-                                          itemBuilder: (_, i){
-                                            return GestureDetector(
-                                              onTap: (){
-                                                Get.back();
-                                                Get.toNamed('${routes[i]['route']}');
-                                              },
-                                              child: Container(
-                                                height: 35,
-                                                margin: EdgeInsets.only(
-                                                    bottom: 10
-                                                ),
-                                                decoration: BoxDecoration(
-                                                    color: kSecondaryColor,
-                                                    borderRadius: BorderRadius.circular(kCardBorderRadius)
-                                                ),
-                                                child: Center(
-                                                  child: Text('${routes[i]['name']}', style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: kGenreTextSize
-                                                  ),),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          barrierColor: Colors.transparent);
+                  PopupMenuButton(
+                    itemBuilder: (_) => [
+                      ...routes.map((route) => PopupMenuItem(
+                            value: route['route'],
+                            child: Text('${route['name']}', style: TextStyle(
+                              color: context.theme.primaryColor
+                            ),),
+                          ))
+                    ],
+                    onSelected: (value) {
+                      Get.toNamed('$value');
                     },
-                    child: Row(
-                      children: [
-                        Text(
-                          'Menu',
-                          style: TextStyle(
-                              fontSize: kGeneralTextSize,
-                              color: context.theme.primaryColor),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Icon(
-                          FeatherIcons.chevronDown,
-                          size: 15,
-                          color: context.theme.primaryColor,
-                        )
-                      ],
+                    child: Chip(
+                      padding: EdgeInsets.symmetric(horizontal: 7),
+                      backgroundColor: context.theme.backgroundColor,
+                      label: Row(
+                        children: [
+                          Text('Menu', style: TextStyle(
+                            color: context.theme.primaryColor
+                          ),),
+                          SizedBox(width: 5,),
+                          Icon(FeatherIcons.chevronDown, size: 16, color: context.theme.primaryColor,)
+                        ],
+                      ),
                     ),
-                  ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(kCardBorderRadius)
+                    ),
+                  )
                 ],
               ),
 
@@ -215,7 +161,7 @@ class Home extends StatelessWidget {
                               width: 15,
                             ),
                             Text(
-                              'Search movie, film, people',
+                              'Search movies, films, people',
                               style: TextStyle(
                                   color: kSecondaryColor, fontSize: 15),
                             )
@@ -243,7 +189,7 @@ class Home extends StatelessWidget {
                   crossAxisCount: 3,
                   crossAxisSpacing: 7,
                   mainAxisSpacing: 5,
-                  staggeredTileBuilder: (int i) => StaggeredTile.count(1, 1.95),
+                  staggeredTileBuilder: (int i) => StaggeredTile.count(1, 1.9),
                   itemBuilder: (_, i) {
                     return MovieCard(movie: movieController.movieData[i]);
                   },
@@ -318,7 +264,8 @@ class Home extends StatelessWidget {
         ],
       ),
       floatingActionButton: Container(
-        decoration: BoxDecoration(color: kSecondaryColor, shape: BoxShape.circle),
+        decoration:
+            BoxDecoration(color: kSecondaryColor, shape: BoxShape.circle),
         child: IconButton(
           onPressed: () {
             Get.dialog(
@@ -336,33 +283,37 @@ class Home extends StatelessWidget {
                           backgroundColor: Colors.transparent,
                           body: Column(
                             children: [
-                              Text('Choose Genres', style: TextStyle(
-                                fontSize: kGeneralTextSize,
-                                color: context.theme.primaryColor
-                              ),),
-                             SizedBox(height: 10,),
-                             Expanded(child:  Obx(() {
-                               if (!genreController.isLoading.value) {
-                                 return GenreWidget(
-                                   genres: genreController.genreData,
-                                 );
-                               } else {
-                                 return ListView.separated(
-                                   itemBuilder: (_, i) {
-                                     return Container(
-                                       height: 30,
-                                       child: ShimmerWidget(),
-                                     );
-                                   },
-                                   separatorBuilder: (_, i) {
-                                     return SizedBox(
-                                       height: 15,
-                                     );
-                                   },
-                                   itemCount: 10,
-                                 );
-                               }
-                             }))
+                              Text(
+                                'Choose Genres',
+                                style: TextStyle(
+                                    fontSize: kGeneralTextSize,
+                                    color: context.theme.primaryColor),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Expanded(child: Obx(() {
+                                if (!genreController.isLoading.value) {
+                                  return GenreWidget(
+                                    genres: genreController.genreData,
+                                  );
+                                } else {
+                                  return ListView.separated(
+                                    itemBuilder: (_, i) {
+                                      return Container(
+                                        height: 30,
+                                        child: ShimmerWidget(),
+                                      );
+                                    },
+                                    separatorBuilder: (_, i) {
+                                      return SizedBox(
+                                        height: 15,
+                                      );
+                                    },
+                                    itemCount: 10,
+                                  );
+                                }
+                              }))
                             ],
                           ),
                         ),

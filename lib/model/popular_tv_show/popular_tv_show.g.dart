@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'trending.dart';
+part of 'popular_tv_show.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Trending _$TrendingFromJson(Map<String, dynamic> json) {
-  return Trending(
+PopularTvShow _$PopularTvShowFromJson(Map<String, dynamic> json) {
+  return PopularTvShow(
     page: json['page'] as int?,
     results: (json['results'] as List<dynamic>?)
         ?.map((e) => Result.fromJson(e as Map<String, dynamic>))
@@ -17,7 +17,8 @@ Trending _$TrendingFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$TrendingToJson(Trending instance) => <String, dynamic>{
+Map<String, dynamic> _$PopularTvShowToJson(PopularTvShow instance) =>
+    <String, dynamic>{
       'page': instance.page,
       'results': instance.results?.map((e) => e.toJson()).toList(),
       'total_pages': instance.totalPages,

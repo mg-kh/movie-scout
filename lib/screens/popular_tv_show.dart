@@ -2,24 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'package:movie/components/movie_card.dart';
 import 'package:movie/components/shimmer_widget.dart';
+import 'package:movie/components/tv_show/tv_show_widget.dart';
 import 'package:movie/constants.dart';
-import 'package:movie/controller/trending/trending_controller.dart';
+import 'package:movie/controller/popular_tv_show/popular_tv_show_controller.dart';
 
+class PopularTvShow extends StatelessWidget {
 
-class Trending extends StatelessWidget {
-
-  final TrendingController trendingController = Get.put(TrendingController());
+  final PopularTvShowController popularTvShowController = Get.put(PopularTvShowController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.backgroundColor,
-      appBar: AppBar(
+      appBar:  AppBar(
         backgroundColor: kSecondaryColor,
         title: Text(
-          'Trending movies on TMDB',
+          'Popular Tv shows on TMDB',
           style: TextStyle(fontSize: 15),
         ),
         actions: [
@@ -35,12 +34,12 @@ class Trending extends StatelessWidget {
       body: Column(
         children: [
           Obx(() {
-            if (!trendingController.isLoading.value) {
+            if (!popularTvShowController.isLoading.value) {
               return Expanded(
                 child: StaggeredGridView.countBuilder(
-                  controller: trendingController.scrollController,
+                  controller: popularTvShowController.scrollController,
                   crossAxisCount: 3,
-                  itemCount: trendingController.trendingData.length,
+                  itemCount: popularTvShowController.popularData.length,
                   shrinkWrap: true,
                   crossAxisSpacing: 7,
                   mainAxisSpacing: 5,
@@ -51,7 +50,7 @@ class Trending extends StatelessWidget {
                       bottom: 15),
                   staggeredTileBuilder: (int i) => StaggeredTile.count(1, 1.95),
                   itemBuilder: (_, i) {
-                    return MovieCard(movie: trendingController.trendingData[i]);
+                    return TvShowWidget(movie: popularTvShowController.popularData[i]);
                   },
                 ),
               );
@@ -77,7 +76,7 @@ class Trending extends StatelessWidget {
             }
           }),
           Obx(() {
-            if (trendingController.isNextPageLoading.value)
+            if (popularTvShowController.isNextPageLoading.value)
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

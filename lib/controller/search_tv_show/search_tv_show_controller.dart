@@ -1,35 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie/constants.dart';
-import 'package:movie/model/trending/result.dart';
-import 'package:movie/services/trending/trending_api_service.dart';
+import 'package:movie/model/search_tv_show/result.dart';
+import 'package:movie/services/search_tv_show/search_tv_show_api_service.dart';
 
-class TrendingController extends GetxController {
+class SearchTvShowController extends GetxController {
+
   var isLoading = false.obs;
-  var trendingData = <Result>[].obs;
+  var movieData = <Result>[].obs;
   var currentPage = 1.obs;
   var totalPages = 0.obs;
   var totalMovies = 0.obs;
+  var genreIdValue = 28.obs;
   final scrollController = ScrollController();
   var isNextPageLoading = false.obs;
   var isErrorOccur = false.obs;
+  var queryData = ''.obs;
 
-  Future getTrendingData({pageNumber: 1, genreId: 28}) async {
+  Future getTvShowData({pageNumber: 1, required query}) async {
     isErrorOccur(true);
+    queryData(query);
 
     //!check loading style for specific page
     if (currentPage.value == 1) {
       isLoading(true);
     }
 
-    try {
-      var movie = await TrendingApiService()
-          .remoteGetTrendingMovieData(pageNumber: pageNumber);
 
-      trendingData.value = [...trendingData, ...movie.results];
-      currentPage(movie.page);
-      totalPages(movie.totalPages);
-      totalMovies(movie.totalResults);
+    //! filter several call same genre
+    if (movieData.length > 0 && pageNumber == 1) {
+      movieData.value = [];
+    }
+
+
+    try {
+      var tvShow = await SearchTvShowApiService().remoteGetTvShowData(pageNumber: pageNumber, query: query);
+      print(tvShow);
+
+      movieData.value = [...movieData, ...tvShow.results];
+      currentPage(tvShow.page);
+      totalPages(tvShow.totalPages);
+      totalMovies(tvShow.totalResults);
 
       if (currentPage.value == 1) {
         isLoading(false);
@@ -48,8 +59,8 @@ class TrendingController extends GetxController {
         currentPage.value <= totalPages.value) {
       if (currentPage.value < totalPages.value) {
         currentPage.value++;
-        await getTrendingData(
-            pageNumber: currentPage.value);
+        await getTvShowData(
+            pageNumber: currentPage.value, query: queryData.value);
         isNextPageLoading.value = false;
       } else {
         isNextPageLoading.value = false;
@@ -75,6 +86,7 @@ class TrendingController extends GetxController {
       var isTop = scrollController.position.pixels == 0;
       if (!isTop) {
         fetchNextPage();
+        print('bottom');
       }
     }
   }
@@ -84,6 +96,5 @@ class TrendingController extends GetxController {
     super.onInit();
     currentPage.value = 1;
     scrollController.addListener(listenScrolling);
-    getTrendingData();
   }
 }
