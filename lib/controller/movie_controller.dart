@@ -14,6 +14,7 @@ class MovieController extends GetxController {
   final scrollController = ScrollController();
   var isNextPageLoading = false.obs;
   var isErrorOccur = false.obs;
+  var scrollValue = 0.0.obs;
 
   Future getMovieData({pageNumber: 1, genreId: 28}) async {
     isErrorOccur(true);
@@ -85,12 +86,21 @@ class MovieController extends GetxController {
   }
 
   void listenScrolling() {
+    scrollValue(scrollController.position.pixels);
     if (scrollController.position.atEdge) {
       var isTop = scrollController.position.pixels == 0;
       if (!isTop) {
         fetchNextPage();
       }
     }
+  }
+
+  void scrollToTop() {
+    scrollController.animateTo(
+      0,
+      duration: Duration(seconds: 1),
+      curve: Curves.easeIn,
+    );
   }
 
   @override

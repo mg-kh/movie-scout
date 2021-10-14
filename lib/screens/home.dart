@@ -66,9 +66,11 @@ class Home extends StatelessWidget {
                     itemBuilder: (_) => [
                       ...routes.map((route) => PopupMenuItem(
                             value: route['route'],
-                            child: Text('${route['name']}', style: TextStyle(
-                              color: context.theme.primaryColor
-                            ),),
+                            child: Text(
+                              '${route['name']}',
+                              style:
+                                  TextStyle(color: context.theme.primaryColor),
+                            ),
                           ))
                     ],
                     onSelected: (value) {
@@ -79,17 +81,23 @@ class Home extends StatelessWidget {
                       backgroundColor: context.theme.backgroundColor,
                       label: Row(
                         children: [
-                          Text('Menu', style: TextStyle(
-                            color: context.theme.primaryColor
-                          ),),
-                          SizedBox(width: 5,),
-                          Icon(FeatherIcons.chevronDown, size: 16, color: context.theme.primaryColor,)
+                          Text(
+                            'Menu',
+                            style: TextStyle(color: context.theme.primaryColor),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Icon(
+                            FeatherIcons.chevronDown,
+                            size: 16,
+                            color: context.theme.primaryColor,
+                          )
                         ],
                       ),
                     ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(kCardBorderRadius)
-                    ),
+                        borderRadius: BorderRadius.circular(kCardBorderRadius)),
                   )
                 ],
               ),
@@ -175,12 +183,53 @@ class Home extends StatelessWidget {
             ),
           ),
 
-          //!movies
+          //!genres
           SliverPadding(
             padding: EdgeInsets.only(
               top: 40,
-              left: 15,
-              right: 15,
+              bottom: 15,
+              left: kHorizontalPaddingValue,
+              right: kHorizontalPaddingValue,
+            ),
+            sliver: SliverFixedExtentList(
+              itemExtent: 30,
+              delegate: SliverChildListDelegate([
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Obx(() {
+                    if (!genreController.isLoading.value) {
+                      return Row(
+                        children: [
+                          ...genreController.genreData
+                              .map((genre) => GenreWidget(genres: genre))
+                        ],
+                      );
+                    } else {
+                      return Row(
+                        children: [
+                          ...List.generate(
+                              10,
+                              (index) => Container(
+                                    width: 70,
+                                    height: 30,
+                                    margin: EdgeInsets.only(right: 8),
+                                    child: ShimmerWidget(),
+                                  ))
+                        ],
+                      );
+                    }
+                  }),
+                ),
+              ]),
+            ),
+          ),
+
+          //!movies
+          SliverPadding(
+            padding: EdgeInsets.only(
+              top: 10,
+              left: kHorizontalPaddingValue,
+              right: kHorizontalPaddingValue,
             ),
             sliver: Obx(() {
               if (!movieController.isLoading.value) {
@@ -221,7 +270,6 @@ class Home extends StatelessWidget {
                       Container(
                         width: 100,
                         height: 40,
-                        margin: EdgeInsets.symmetric(vertical: 15),
                         decoration: BoxDecoration(
                             color: kSecondaryColor,
                             borderRadius:
@@ -263,73 +311,20 @@ class Home extends StatelessWidget {
           )
         ],
       ),
-      floatingActionButton: Container(
-        decoration:
-            BoxDecoration(color: kSecondaryColor, shape: BoxShape.circle),
-        child: IconButton(
-          onPressed: () {
-            Get.dialog(
-                Center(
-                  child: UnconstrainedBox(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(kCardBorderRadius),
-                      child: Container(
-                        width: 250,
-                        height: 350,
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                        color: context.theme.backgroundColor,
-                        child: Scaffold(
-                          backgroundColor: Colors.transparent,
-                          body: Column(
-                            children: [
-                              Text(
-                                'Choose Genres',
-                                style: TextStyle(
-                                    fontSize: kGeneralTextSize,
-                                    color: context.theme.primaryColor),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Expanded(child: Obx(() {
-                                if (!genreController.isLoading.value) {
-                                  return GenreWidget(
-                                    genres: genreController.genreData,
-                                  );
-                                } else {
-                                  return ListView.separated(
-                                    itemBuilder: (_, i) {
-                                      return Container(
-                                        height: 30,
-                                        child: ShimmerWidget(),
-                                      );
-                                    },
-                                    separatorBuilder: (_, i) {
-                                      return SizedBox(
-                                        height: 15,
-                                      );
-                                    },
-                                    itemCount: 10,
-                                  );
-                                }
-                              }))
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                barrierColor: Colors.black.withOpacity(0.4),
-                barrierDismissible: true);
-          },
-          icon: Icon(
-            FeatherIcons.list,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      floatingActionButton: Obx((){
+        if(movieController.scrollValue.value > 300){
+          return FloatingActionButton(
+            onPressed: (){
+              movieController.scrollToTop();
+            },
+            child: Icon(FeatherIcons.arrowUp)
+            ,
+          );
+        }else{
+          return SizedBox();
+        }
+      })
+
     );
   }
 }
