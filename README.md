@@ -22,7 +22,7 @@ Thank you [ TMDB ] for api.
 
 ### How to clone and develop
 ```
-git clone 
+git clone https://github.com/mg-kh/movie-scout.git
 ```
 
 ```
