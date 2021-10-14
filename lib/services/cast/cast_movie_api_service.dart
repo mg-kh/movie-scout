@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:movie/model/cast/cast_movie/cast_movie.dart';
 
 class CastMovieApiService {
-  static String apiKey = '08058bd6133df94466358e37bbf4eb27';
+  static String apiKey = '';
 
   Future remoteGetCastMovieData({required personId}) async {
     var url = Uri.parse(

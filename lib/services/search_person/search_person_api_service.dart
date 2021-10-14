@@ -7,7 +7,7 @@ import 'package:movie/model/search_person/search_person.dart';
 
 
 class SearchPersonApiService{
-  static String apiKey = '08058bd6133df94466358e37bbf4eb27';
+  static String apiKey = '';
   final SettingController settingController = Get.find();
 
   Future remoteSearchPersonData({required pageNumber, required query})async{

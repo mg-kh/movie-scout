@@ -6,7 +6,7 @@ import 'package:movie/controller/setting_controller.dart';
 import 'package:movie/model/movie/movie.dart';
 
 class MovieApiService {
-  static String apiKey = '08058bd6133df94466358e37bbf4eb27';
+  static String apiKey = '';
   final SettingController settingController = Get.find();
 
   Future remoteGetMovieData({required pageNumber, required genreId}) async {

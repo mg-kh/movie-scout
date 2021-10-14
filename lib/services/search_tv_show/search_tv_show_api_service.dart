@@ -7,7 +7,7 @@ import 'package:movie/model/search_tv_show/search_tv_show.dart';
 
 
 class SearchTvShowApiService{
-  static String apiKey = '08058bd6133df94466358e37bbf4eb27';
+  static String apiKey = '';
   final SettingController settingController = Get.find();
 
   Future remoteGetTvShowData({required query, required pageNumber})async{
