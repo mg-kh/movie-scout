@@ -7,18 +7,18 @@ Thank you [ TMDB ] for api.
 
 ### Packages I used
 * [get](https://pub.dev/packages/get) for [ state-management, route management, dependency injection ]
-* [hex_color]() for [ ease color code ]
-* [flutter_feather_icons]() for [ beautiful icon ]
-* [http]() for [ network calls ]
-* [shimmer]() for [ loading ]
-* [flutter_staggered_grid_view]() for [ grid view ]
-* [transparent_image]() for [ ease changing of default image and actual poster ]
-* [get_storage]() for [ storing setting data ]
-* [json_serializable]() for [making class model for json]
-* [json_annotation]() with [ json_serializable ]
-* [youtube_player_iframe]() to [ play yt videos ]
-* [flutter_launcher_icons]() for [ app launcher icon ]
-* [flutter_native_splash]() form [ native splash screen ]
+* [hex_color](https://pub.dev/packages/hexcolor) for [ ease color code ]
+* [flutter_feather_icons](https://pub.dev/packages/flutter_feather_icons) for [ beautiful icon ]
+* [http](https://pub.dev/packages/http) for [ network calls ]
+* [shimmer](https://pub.dev/packages/shimmer) for [ loading ]
+* [flutter_staggered_grid_view](https://pub.dev/packages/flutter_staggered_grid_view) for [ grid view ]
+* [transparent_image](https://pub.dev/packages/transparent_image) for [ ease changing of default image and actual poster ]
+* [get_storage](https://pub.dev/packages/get_storage) for [ storing setting data ]
+* [json_serializable](https://pub.dev/packages/json_serializable) for [making class model for json]
+* [json_annotation](https://pub.dev/packages/json_annotation) with [ json_serializable ]
+* [youtube_player_iframe](https://pub.dev/packages/youtube_player_iframe) to [ play yt videos ]
+* [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) for [ app launcher icon ]
+* [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) form [ native splash screen ]
 
 ### How to clone and develop
 ```
